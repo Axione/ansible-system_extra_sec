@@ -152,3 +152,19 @@
     force: false
   when: extra_sec_change_root_mail_alias
   notify: Update postfix aliases
+
+- name: Find files inside /lib/sysctl.d/
+  ansible.builtin.find:
+    paths: /lib/sysctl.d/
+    file_type: file
+  register: sysctl_d_files
+  when: extra_sec_delete_lib_sysctld_content
+
+- name: Delete files inside /lib/sysctl.d/
+  ansible.builtin.file:
+    path: "{{ item.path }}"
+    state: absent
+  loop: "{{ sysctl_d_files.files }}"
+  loop_control:
+    label: "{{ item.path }}"
+  when: extra_sec_delete_lib_sysctld_content

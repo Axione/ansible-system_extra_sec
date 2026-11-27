@@ -44,3 +44,6 @@ extra_sec_umask_rc: false
 ## Update email for root account
 extra_sec_change_root_mail_alias: false
 extra_sec_postfix_root_mail_alias: "/dev/null"
+
+## Delete kernel hardening file set by packages
+extra_sec_delete_lib_sysctld_content: false
